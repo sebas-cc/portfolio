@@ -1,0 +1,66 @@
+#main{
+  margin-left: 5vw;
+  margin-right:  5vw;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 2vw;
+  align-items: center;
+}
+
+#card{
+  width: 50vw;
+  height: calc(50vh + 10px);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 0;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #00000035;
+}
+
+#contact_list{
+  box-shadow: inset 0 8px 10px -10px rgba(255, 255, 255, 0.9);
+  padding-top: 5%;
+  width: 100%;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+@media screen and (max-width: 650px){
+  #main{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #card{
+    height: calc(50vw + 25px);
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+  #card > img{
+    width: 80%;
+    height: 80%;
+  }
+  li > a > img{
+    width: 100%;
+    height: 70%;
+  }
+  #bio{
+    margin: 0 10vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #bio *{
+    text-align: center;
+  }
+}

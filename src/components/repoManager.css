@@ -1,0 +1,70 @@
+nav, table{
+    margin-left: 10vw;
+    margin-right: 10vw;
+    padding: 5vh 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    background-color: #181818;
+    font-size: 1rem;
+}
+
+nav{
+    margin-top: 2vw;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+table{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    background-color: #00000035;
+}
+
+label{
+    margin-right: 10px;
+}
+
+select, input{
+    background-color: rgba(255, 255, 255, 0.806);
+    padding: 0.5em;
+}
+
+td{
+    display: grid;
+    padding: 2rem;
+    background-color: rgba(255, 245, 245, 0.192);
+    border-radius: 10px;
+}
+
+td > a{
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    font-size: 1.15rem;
+    word-break: break-all;
+}
+
+i{
+    width: fit-content;
+    border-radius: 15px;
+    background-color: #181818af;
+    padding: 5px;
+}
+
+i:empty{
+    display: none;
+}
+
+@media screen and (max-width: 650px){
+    nav{
+        display: block
+    }
+    
+    div{
+        display: grid;
+        align-items: center;
+        padding: 1rem;
+    }
+}
