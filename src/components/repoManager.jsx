@@ -37,6 +37,7 @@ function RepoManager(){
     return(
         <>
             <nav>
+                <h1>PROJECTS</h1>
                 <div>
                     <label htmlFor="languages">Programming language: </label>
                     <select id="languages" name="languages" onChange={(e) => setSelection(e.target.value)}>
