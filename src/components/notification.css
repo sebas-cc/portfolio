@@ -1,0 +1,21 @@
+#notification{
+    visibility: hidden;
+    right: 0;
+    top: 0;
+    padding-top: 2vw;
+    background-color: #00000081;
+    text-align: end;
+    position: fixed;
+}
+
+#notification > *{
+    padding: 0 2vw 0 2vw;
+}
+
+#progressBar{
+    height: 0.5vw;
+    margin-top: 2vw;
+    right: 0;
+    left: 0;
+    background-color: #2ecc71;
+}
