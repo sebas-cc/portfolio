@@ -1,45 +1,134 @@
-import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import RepoManager from './components/repoManager';
 import Notification from './components/notification';
+import './App.css';
 
 function App() {
-  const [progressBar, setProgressBar] = useState(0)
+  const [progressBar, setProgressBar] = useState(0);
+  const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const progressTimerRef = useRef(null);
+  const EMAIL = 'csebas459@gmail.com';
 
-  const copyToClipboard = () => {
-    setProgressBar(progressBar + 2)
-    navigator.clipboard.writeText('csebas459@gmail.com')
-    document.getElementById('notification').style.visibility = 'visible'
-  }
+  // Función memoizada para copiar al portapapeles
+  const copyToClipboard = useCallback(() => {
+    navigator.clipboard.writeText(EMAIL)
+      .then(() => {
+        setProgressBar(2); // Iniciar en 2 para mostrar progreso inmediato
+        setIsNotificationVisible(true);
+      })
+      .catch(error => {
+        console.error('Error al copiar email:', error);
+      });
+  }, []);
 
+  // Efecto para manejar la animación de la barra de progreso
   useEffect(() => {
-    if (document.getElementById('notification').style.visibility !== "hidden"){
-        setTimeout(() => setProgressBar(progressBar + 2), 50)
+    // Limpiar cualquier temporizador existente
+    if (progressTimerRef.current) {
+      clearTimeout(progressTimerRef.current);
     }
-    if (progressBar > 90){
-        document.getElementById('notification').style.visibility = 'hidden'
-        setProgressBar(0)
+
+    if (isNotificationVisible) {
+      if (progressBar <= 90) {
+        // Continuar incrementando la barra de progreso
+        progressTimerRef.current = setTimeout(() => {
+          setProgressBar(prev => prev + 2);
+        }, 50);
+      } else {
+        // Restablecer cuando llegue al 90%
+        setIsNotificationVisible(false);
+        setProgressBar(0);
+      }
     }
-  },[progressBar]);
+
+    // Limpieza al desmontar el componente
+    return () => {
+      if (progressTimerRef.current) {
+        clearTimeout(progressTimerRef.current);
+      }
+    };
+  }, [progressBar, isNotificationVisible]);
+
   return (
-    <>
-      <Notification width={progressBar}/>
-      <div id="main">
-        <div id="card">
-          <img src="https://media.licdn.com/dms/image/C4D03AQHiyWCncDOFFA/profile-displayphoto-shrink_400_400/0/1652410523882?e=1721260800&v=beta&t=Y0QE7XjlhwK-nDx0FyrpsS8yI7XYIJ0uyaibqTlqD3I" alt="sebas-cc profile_picture" width="300vw"/>
-          <ul id="contact_list">
-            <li><a href="https://github.com/sebas-cc" target="_blank" rel='noreferrer'><img src="https://skillicons.dev/icons?i=github" alt='github' width="75vw"/></a></li>
-            <li><a href="https://www.linkedin.com/in/sebastian-camacho-71a862239" target="_blank" rel='noreferrer'><img src="https://skillicons.dev/icons?i=linkedin" alt='linkedin' width="75vw"/></a></li>
-            <li><a href="javascript:;" rel='noreferrer' onClick={copyToClipboard}><img src="https://skillicons.dev/icons?i=gmail" alt='Gmail' width="75vw"/></a></li>
+    <div className="hero-section">
+      <Notification 
+        width={progressBar} 
+        isVisible={isNotificationVisible} 
+        message="Email copied to clipboard!" 
+      />
+      
+      <main className="profile-wrapper">
+        <div className="profile-card">
+          <div className="profile-image-container">
+            <img 
+              src="https://media.licdn.com/dms/image/C4D03AQHiyWCncDOFFA/profile-displayphoto-shrink_200_200/0/1652410523882?e=2147483647&v=beta&t=wcx39M1BvXNyJ1WTheCIKf4jkVFd4dTF8_yPk8mwby4" 
+              alt="Sebastian Camacho" 
+              className="profile-image" 
+            />
+          </div>
+          
+          <h1 className="name-heading">Sebastian Camacho</h1>
+          <h2 className="title-heading">Software Engineer</h2>
+          
+          <ul className="social-links">
+            <li className="social-item">
+              <a 
+                href="https://github.com/sebas-cc" 
+                target="_blank" 
+                rel="noreferrer" 
+                aria-label="GitHub Profile"
+                className="social-link github"
+              >
+                <img src="https://skillicons.dev/icons?i=github" alt="GitHub" className="social-icon" />
+                <span className="social-text">GitHub</span>
+              </a>
+            </li>
+            <li className="social-item">
+              <a 
+                href="https://www.linkedin.com/in/sebastian-camacho-71a862239" 
+                target="_blank" 
+                rel="noreferrer" 
+                aria-label="LinkedIn Profile"
+                className="social-link linkedin"
+              >
+                <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn" className="social-icon" />
+                <span className="social-text">LinkedIn</span>
+              </a>
+            </li>
+            <li className="social-item">
+              <button 
+                className="social-link email" 
+                onClick={copyToClipboard} 
+                aria-label="Copy email to clipboard"
+              >
+                <img src="https://skillicons.dev/icons?i=gmail" alt="Email" className="social-icon" />
+                <span className="social-text">Email Me</span>
+              </button>
+            </li>
           </ul>
         </div>
-        <div id="bio">
-          <h1>Sebastian Camacho</h1><br/>
-          <p>Hi everyone! I'm a software engineer who has knowledge in the field as a front-end and back-end developer and as a Salesforce developer. I'm always open to new opportunities and learning new technologies to not only grow within my career but also my network. A quick chat may be the start of a new beginning, so don't hesitate to contact me.</p>
+        
+        <div className="bio-container">
+          <div className="bio-content">
+            <h2 className="bio-heading">About Me</h2>
+            <p className="bio-text">
+              Hi everyone! I'm a software engineer specializing in both front-end and back-end development, 
+              including Salesforce technologies. I'm constantly seeking new opportunities to expand my 
+              skills and grow my professional network.
+            </p>
+            <p className="bio-text highlight">
+              A quick chat may be the start of a new beginning — don't hesitate to reach out!
+            </p>{/*
+            <div className="cta-container">
+              <button className="cta-button primary">View Projects</button>
+              <button className="cta-button secondary">Download CV</button>
+            </div>*/}
+          </div>
         </div>
-      </div>
-      <RepoManager/>
-    </>
+      </main>
+      
+      <RepoManager />
+    </div>
   );
 }
 
