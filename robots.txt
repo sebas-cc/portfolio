@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: 
+
+Sitemap: https://sebas-cc.github.io/sitemap.xml
