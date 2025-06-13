@@ -1,26 +1,13 @@
-/* Estilos para la sección principal del portafolio */
-:root {
-  --primary-color: #3498db;
-  --secondary-color: #222428;
-  --accent-color: #4caf50;
-  --light-bg: #181818;
-  --dark-text: #2c3e50;
-  --light-text: #ecf0f1;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  --transition: all 0.3s ease;
-}
-
-.hero-section {
+.app-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  gap: var(--spacing-lg);
   position: relative;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
 }
 
 .profile-wrapper {
   display: grid;
+  margin-bottom: var(--spacing-lg);
   grid-template-columns: 1fr 2fr;
   gap: 3rem;
   align-items: center;
@@ -40,7 +27,7 @@
 
 .profile-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow)
 }
 
 .profile-image-container {
@@ -138,7 +125,7 @@
 
 .bio-container:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow)
 }
 
 .bio-heading {
@@ -201,7 +188,7 @@
 .primary:hover {
   background-color: #2980b9;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+  box-shadow: var(--shadow);
 }
 
 .secondary {
@@ -219,10 +206,6 @@
 @media (max-width: 768px) {
   .profile-wrapper {
     grid-template-columns: 1fr;
-  }
-  
-  .profile-card {
-    margin-bottom: 2rem;
   }
   
   .cta-container {

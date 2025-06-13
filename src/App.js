@@ -13,7 +13,7 @@ function App() {
   const copyToClipboard = useCallback(() => {
     navigator.clipboard.writeText(EMAIL)
       .then(() => {
-        setProgressBar(2); // Iniciar en 2 para mostrar progreso inmediato
+        setProgressBar(5); // Iniciar en 5 para mostrar progreso inmediato
         setIsNotificationVisible(true);
       })
       .catch(error => {
@@ -29,13 +29,13 @@ function App() {
     }
 
     if (isNotificationVisible) {
-      if (progressBar <= 90) {
+      if (progressBar <= 100) {
         // Continuar incrementando la barra de progreso
         progressTimerRef.current = setTimeout(() => {
           setProgressBar(prev => prev + 2);
         }, 50);
       } else {
-        // Restablecer cuando llegue al 90%
+        // Restablecer cuando llegue al 100%
         setIsNotificationVisible(false);
         setProgressBar(0);
       }
@@ -50,7 +50,7 @@ function App() {
   }, [progressBar, isNotificationVisible]);
 
   return (
-    <div className="hero-section">
+    <div className="app-container">
       <Notification 
         width={progressBar} 
         isVisible={isNotificationVisible} 
@@ -62,6 +62,7 @@ function App() {
           <div className="profile-image-container">
             <img 
               src="https://media.licdn.com/dms/image/C4D03AQHiyWCncDOFFA/profile-displayphoto-shrink_200_200/0/1652410523882?e=2147483647&v=beta&t=wcx39M1BvXNyJ1WTheCIKf4jkVFd4dTF8_yPk8mwby4" 
+              title="Sebastian Camacho" 
               alt="Sebastian Camacho" 
               className="profile-image" 
             />
@@ -79,7 +80,7 @@ function App() {
                 aria-label="GitHub Profile"
                 className="social-link github"
               >
-                <img src="https://skillicons.dev/icons?i=github" alt="GitHub" className="social-icon" />
+                <img src="https://skillicons.dev/icons?i=github" title="GitHub Link" alt="GitHub Link" className="social-icon" />
                 <span className="social-text">GitHub</span>
               </a>
             </li>
@@ -91,7 +92,7 @@ function App() {
                 aria-label="LinkedIn Profile"
                 className="social-link linkedin"
               >
-                <img src="https://skillicons.dev/icons?i=linkedin" alt="LinkedIn" className="social-icon" />
+                <img src="https://skillicons.dev/icons?i=linkedin" title="LinkedIn Link" alt="LinkedIn Link" className="social-icon" />
                 <span className="social-text">LinkedIn</span>
               </a>
             </li>
@@ -101,7 +102,7 @@ function App() {
                 onClick={copyToClipboard} 
                 aria-label="Copy email to clipboard"
               >
-                <img src="https://skillicons.dev/icons?i=gmail" alt="Email" className="social-icon" />
+                <img src="https://skillicons.dev/icons?i=gmail" title="Email" alt="Email" className="social-icon" />
                 <span className="social-text">Email Me</span>
               </button>
             </li>
